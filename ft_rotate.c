@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swap_both_top.c                                 :+:      :+:    :+:   */
+/*   ft_rotate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fakouyat <fakouyat@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/25 22:56:55 by fakouyat          #+#    #+#             */
-/*   Updated: 2022/06/25 22:56:55 by fakouyat         ###   ########.fr       */
+/*   Created: 2022/06/26 17:46:30 by fakouyat          #+#    #+#             */
+/*   Updated: 2022/06/26 17:46:30 by fakouyat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_headers.h"
 
-void	ft_swap_both_top(t_stack **stack_a, t_stack **stack_b)
+void	ft_rotate(t_stack **stack)
 {
-	ft_swap_top(stack_a);
-	ft_swap_top(stack_b);
+	t_stack	*tmp;
+	t_stack	*first;
+
+	first = *stack;
+	*stack = (*stack)->next;
+	tmp = *stack;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = first;
+	tmp->next->next = NULL;
 }
 
-void	ss(t_stack **tab_stack_a, t_stack **tab_stack_b)
+void	r_a_b(t_stack **tab_stack, char *name)
 {
-	ft_swap_both_top(tab_stack_a, tab_stack_b);
-	write(1, "ss\n", 3);
+	if (*tab_stack)
+		write(1, name, 3);
+	ft_rotate(tab_stack);
 }

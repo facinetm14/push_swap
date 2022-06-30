@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swap_both_top.c                                 :+:      :+:    :+:   */
+/*   is_sorted.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fakouyat <fakouyat@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/25 22:56:55 by fakouyat          #+#    #+#             */
-/*   Updated: 2022/06/25 22:56:55 by fakouyat         ###   ########.fr       */
+/*   Created: 2022/06/30 06:34:34 by fakouyat          #+#    #+#             */
+/*   Updated: 2022/06/30 06:34:34 by fakouyat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_headers.h"
 
-void	ft_swap_both_top(t_stack **stack_a, t_stack **stack_b)
+int	is_sorted(t_stack *tab_stack, int lenght)
 {
-	ft_swap_top(stack_a);
-	ft_swap_top(stack_b);
-}
+	int	i;
 
-void	ss(t_stack **tab_stack_a, t_stack **tab_stack_b)
-{
-	ft_swap_both_top(tab_stack_a, tab_stack_b);
-	write(1, "ss\n", 3);
+	i = 0;
+	while (i < lenght - 1)
+	{
+		if (tab_stack->data > (tab_stack->next)->data)
+			return(0);
+		tab_stack = tab_stack->next;
+		i++;
+	}
+	return (1);
 }

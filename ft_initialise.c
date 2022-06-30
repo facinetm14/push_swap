@@ -14,9 +14,10 @@
 
 int	ft_atoi(const char *str)
 {
-	int	i;
-	int	sign;
-	int	number;
+	int		i;
+	long	sign;
+	long	number;
+	long	result;
 
 	i = 0;
 	sign = 1;
@@ -34,33 +35,46 @@ int	ft_atoi(const char *str)
 		number = (number * 10) + (str[i] - '0');
 		i++;
 	}
-	return (number * sign);
+	result = sign * number;
+	if (result < -2147483648 || result > 2147483647)
+		return (0);
+	return ((int)number * sign);
 }
 
 t_stack	*ft_lstnew(int data)
 {
 	t_stack	*node;
+
 	node = malloc(sizeof(t_stack));
 	node->data = data;
 	node->next = NULL;
 	return (node);
 }
 
-t_stack **ft_initialise(char *arr[], int lenght)
+t_stack	**ft_initialise(char *arr[], int lenght)
 {
-    t_stack   *node;
-    t_stack   **tab_stack;
-    int       i;
+	t_stack	*node;
+	t_stack	**tab_stack;
+	int		i;
+	int		data_int;		
 
-    i= 0;
-    tab_stack = malloc(sizeof(t_stack*) * (lenght - 1));
-    while (i < lenght - 1)
-    {
-        node = ft_lstnew(ft_atoi(arr[i + 1]));
-        tab_stack[i] = node;
-        if (i > 0)
-            (tab_stack[i-1])->next = node;
-        i++;
-    }
-    return (tab_stack);
+	i = 0;
+	tab_stack = malloc(sizeof(t_stack *) * (lenght - 1));
+	if (!tab_stack)
+	{
+		free(tab_stack);
+		return (0);
+	}
+	while (i < lenght - 1)
+	{
+		data_int = ft_atoi(arr[i + 1]);
+		if ((data_int == 0) && (arr[i + 1][0] != '0'))
+			return (NULL);
+		node = ft_lstnew(data_int);
+		tab_stack[i] = node;
+		if (i > 0)
+			(tab_stack[i - 1])->next = node;
+		i++;
+	}
+	return (tab_stack);
 }
