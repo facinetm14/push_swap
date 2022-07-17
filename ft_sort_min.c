@@ -9,6 +9,7 @@
 /*   Updated: 2022/06/27 16:16:02 by fakouyat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_headers.h"
 
 void	ft_sort_min_two(t_stack **tab_stack_a)
@@ -19,7 +20,7 @@ void	ft_sort_min_two(t_stack **tab_stack_a)
 	first = (*tab_stack_a)->data;
 	sec = (*tab_stack_a)->next->data;
 	if (first > sec)
-		s_a_b(tab_stack_a, "sb\n");
+		s_a_b(tab_stack_a, "sa\n");
 	else if (first == sec)
 		write(1, "Error\n", 6);
 	else
@@ -53,30 +54,58 @@ void	ft_sort_min_three(t_stack **tst_a)
 	}
 }
 
-void	ft_sort_min_plus(t_stack **tab_stack_a, int lenght)
+void	ft_sort_min_five(t_stack **tab_stack_a, int lenght)
 {
 	t_stack	**tab_stack_b;
+	int		*arr;
+	int		*arr_order;
+	int		mid;
 	int		size_b;
-	int		min;
 
 	tab_stack_b = malloc(sizeof(t_stack *) * (lenght));
-	min = find_smallest(*tab_stack_a);
-	size_b = lenght - 1;
-	while (*tab_stack_a)
+	arr_order = stack_sorted_arr(*tab_stack_a, lenght);
+	mid = (lenght + 1) / 2;
+	size_b = 0;
+	while (*tab_stack_a && lenght > 3)
 	{
-		if ((*tab_stack_a)->data == min)
+		arr = stack_to_array(*tab_stack_a, lenght);
+		if ((*tab_stack_a)->data < arr_order[mid - 1])
 		{
 			p_a_b(tab_stack_b, tab_stack_a, "pb\n");
-			min = find_smallest(*tab_stack_a);
-			size_b--;
+			size_b++;
+			lenght--;
 		}
+		else if (arr[lenght - 1] < arr_order[mid - 1])
+			rr_a_b(tab_stack_a, "rra\n");
 		else
 			r_a_b(tab_stack_a, "ra\n");
-		if (size_b == 3)
-			break ;
 	}
-	ft_sort_min_three(tab_stack_a);
-	while (*tab_stack_b)
-		p_a_b(tab_stack_a, tab_stack_b, "pa\n");
+	last_adjust(tab_stack_a, tab_stack_b, size_b);
+}
+
+/**
+* mid stores respectively : pivot's index, pivot's value, stack_a lenght
+* size_b stores respectively : curent chunck size and stack_b size;
+*/
+void	ft_sort_big(t_stack **tab_stack_a, int lenght)
+{
+	t_stack	**tab_stack_b;
+	int		*arr_sorted;
+	int		mid[3];
+	int		size_b[2];
+
+	tab_stack_b = malloc(sizeof(t_stack *) * lenght);
+	size_b[1] = 0;
+	mid[2] = lenght;
+	mid[0] = lenght / 8;
+	while (mid[2] > 1)
+	{
+		arr_sorted = stack_sorted_arr(*tab_stack_a, mid[2]);
+		mid[0] = find_pivot(mid[2], mid[0]);
+		mid[1] = arr_sorted[(mid[0])];
+		size_b[0] = 0;
+		ft_push_forward(tab_stack_a, tab_stack_b, mid, size_b);
+	}
+	ft_push_back(tab_stack_a, tab_stack_b, size_b[1]);
 	free(tab_stack_b);
 }

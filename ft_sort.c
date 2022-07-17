@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_sorted.c                                        :+:      :+:    :+:   */
+/*   ft_sort.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fakouyat <fakouyat@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/30 06:34:34 by fakouyat          #+#    #+#             */
-/*   Updated: 2022/06/30 06:34:34 by fakouyat         ###   ########.fr       */
+/*   Created: 2022/07/04 01:43:30 by fakouyat          #+#    #+#             */
+/*   Updated: 2022/07/04 01:43:30 by fakouyat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_headers.h"
 
-int	is_sorted(t_stack *tab_stack, int lenght)
+void	ft_sort(t_stack **tab_stack_a, int lenght)
 {
-	int	i;
-
-	i = 0;
-	while (i < lenght - 1)
-	{
-		if (tab_stack->data > (tab_stack->next)->data)
-			return(0);
-		tab_stack = tab_stack->next;
-		i++;
-	}
-	return (1);
+	if (is_sorted(*tab_stack_a, lenght) == 1)
+		return ;
+	if (lenght == 2)
+		ft_sort_min_two(tab_stack_a);
+	else if (lenght == 3)
+		ft_sort_min_three(tab_stack_a);
+	else if (lenght > 3 && lenght <= 5)
+		ft_sort_min_five(tab_stack_a, lenght);
+	else if (lenght > 5)
+		ft_sort_big(tab_stack_a, lenght);
 }
