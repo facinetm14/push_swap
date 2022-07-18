@@ -21,10 +21,10 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-$(NAME) : all
+all : $(NAME)
 
-all: $(OBJS)
-	$(CC) $(CFLAGS) $(SRCS) -I headers -o $(NAME)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(SRCS) -o $(NAME)
 
 clean :
 	rm -rf $(OBJS)
