@@ -12,7 +12,7 @@
 
 #include "ft_headers.h"
 
-void	ft_push_swap_arr(int *arr, int i, int j)
+void	ft_push_swap_arr(int arr[], int i, int j)
 {
 	int	tmp;
 
@@ -21,14 +21,12 @@ void	ft_push_swap_arr(int *arr, int i, int j)
 	arr[i] = tmp;
 }
 
-int	*stack_sorted_arr(t_stack *tab_stack_a, int lenght)
+void	stack_sorted_arr(t_stack *tab_stack_a, int lenght, int arr[])
 {
-	int	*arr;
 	int	i;
 	int	j;
 
 	i = 0;
-	arr = (int *)malloc(sizeof(int) * lenght);
 	while (tab_stack_a)
 	{
 		arr[i] = tab_stack_a->data;
@@ -47,23 +45,19 @@ int	*stack_sorted_arr(t_stack *tab_stack_a, int lenght)
 		}
 		i++;
 	}
-	return (arr);
 }
 
-int	*stack_to_array(t_stack *tab_stack_a, int lenght)
+void	stack_to_array(t_stack *tab_stack_a, int lenght, int arr[])
 {
-	int	*arr;
 	int	i;
 
 	i = 0;
-	arr = (int *)malloc(sizeof(int) * lenght);
-	while (tab_stack_a)
+	while (tab_stack_a && i < lenght)
 	{
 		arr[i] = tab_stack_a->data;
 		i++;
 		tab_stack_a = tab_stack_a->next;
 	}
-	return (arr);
 }
 
 int	is_sorted(t_stack *tab_stack, int lenght)

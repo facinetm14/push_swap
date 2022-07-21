@@ -24,11 +24,11 @@ int	find_pivot(int lenght, int mid)
 
 void	ft_push_forward(t_stack **tst_a, t_stack **tst_b, int *mid, int *size_b)
 {
-	int	*arr;
+	int	arr[MAX_STACK];
 
 	while (*tst_a)
 	{
-		arr = stack_to_array(*tst_a, mid[2]);
+		stack_to_array(*tst_a, mid[2], arr);
 		if ((*tst_a)->data < mid[1])
 		{
 			p_a_b(tst_b, tst_a, "pb\n");
@@ -50,13 +50,13 @@ void	ft_push_forward(t_stack **tst_a, t_stack **tst_b, int *mid, int *size_b)
 
 void	ft_push_back(t_stack **tab_stack_a, t_stack **tab_stack_b, int size_b)
 {
-	int	*arr_sorted;
-	int	*arr;
+	int	arr_sorted[MAX_STACK];
+	int	arr[MAX_STACK];
 
 	while (*tab_stack_b)
 	{
-		arr_sorted = stack_sorted_arr(*tab_stack_b, size_b);
-		arr = stack_to_array(*tab_stack_b, size_b);
+		stack_sorted_arr(*tab_stack_b, size_b, arr_sorted);
+		stack_to_array(*tab_stack_b, size_b, arr);
 		if ((*tab_stack_b)->data == arr_sorted[(size_b - 1)])
 		{
 			p_a_b(tab_stack_a, tab_stack_b, "pa\n");

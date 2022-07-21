@@ -54,28 +54,27 @@ void	ft_sort_min_three(t_stack **tst_a)
 	}
 }
 
-void	ft_sort_min_five(t_stack **tab_stack_a, int lenght)
+void	ft_sort_min_five(t_stack **tab_stack_a, int lenght,
+			int arr[], int arr_sorted[])
 {
 	t_stack	**tab_stack_b;
-	int		*arr;
-	int		*arr_order;
 	int		mid;
 	int		size_b;
 
-	tab_stack_b = malloc(sizeof(t_stack *) * (lenght));
-	arr_order = stack_sorted_arr(*tab_stack_a, lenght);
+	tab_stack_b = malloc(sizeof(t_stack) * (lenght));
+	stack_sorted_arr(*tab_stack_a, lenght, arr_sorted);
 	mid = (lenght + 1) / 2;
 	size_b = 0;
 	while (*tab_stack_a && lenght > 3)
 	{
-		arr = stack_to_array(*tab_stack_a, lenght);
-		if ((*tab_stack_a)->data < arr_order[mid - 1])
+		stack_to_array(*tab_stack_a, lenght, arr);
+		if ((*tab_stack_a)->data < arr_sorted[mid - 1])
 		{
 			p_a_b(tab_stack_b, tab_stack_a, "pb\n");
 			size_b++;
 			lenght--;
 		}
-		else if (arr[lenght - 1] < arr_order[mid - 1])
+		else if (arr[lenght - 1] < arr_sorted[mid - 1])
 			rr_a_b(tab_stack_a, "rra\n");
 		else
 			r_a_b(tab_stack_a, "ra\n");
@@ -87,10 +86,9 @@ void	ft_sort_min_five(t_stack **tab_stack_a, int lenght)
 * mid stores respectively : pivot's index, pivot's value, stack_a lenght
 * size_b stores respectively : curent chunck size and stack_b size;
 */
-void	ft_sort_big(t_stack **tab_stack_a, int lenght)
+void	ft_sort_big(t_stack **tab_stack_a, int lenght, int arr_sorted[])
 {
 	t_stack	**tab_stack_b;
-	int		*arr_sorted;
 	int		mid[3];
 	int		size_b[2];
 
@@ -100,7 +98,7 @@ void	ft_sort_big(t_stack **tab_stack_a, int lenght)
 	mid[0] = lenght / 8;
 	while (mid[2] > 1)
 	{
-		arr_sorted = stack_sorted_arr(*tab_stack_a, mid[2]);
+		stack_sorted_arr(*tab_stack_a, mid[2], arr_sorted);
 		mid[0] = find_pivot(mid[2], mid[0]);
 		mid[1] = arr_sorted[(mid[0])];
 		size_b[0] = 0;
