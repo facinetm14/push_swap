@@ -57,5 +57,6 @@ void	ft_push_forward(t_stack **tst_a, t_stack **tst_b,
 int		find_pivot(int lenght, int mid);
 int		check_redondance(t_stack **tab_stack_a, int lenght);
 void	free_stack(t_stack **tab_stack);
+int		is_args_int(int lenght, char *argv[]);
 
 #endif
