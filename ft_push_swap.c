@@ -12,6 +12,26 @@
 
 #include "ft_headers.h"
 
+int	is_args_int(int lenght, char *argv[])
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < lenght)
+	{
+		j = 0;
+		while (argv[i + 1][j] != '\0')
+		{
+			if (!(argv[i + 1][j] >= '0' && argv[i + 1][j] <= '9'))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 void	free_stack(t_stack **tab_stack)
 {
 	t_stack	*tmp;
@@ -40,10 +60,7 @@ int	check_redondance(t_stack **tab_stack_a, int lenght)
 		while (j < lenght)
 		{
 			if (arr[i] == arr[j])
-			{
-				free(arr);
 				return (1);
-			}
 			j++;
 		}
 		i++;
@@ -57,6 +74,11 @@ int	main(int argc, char *argv[])
 	int		lenght;
 
 	lenght = argc - 1;
+	if (argc <= 1 ||(is_args_int(lenght, argv) == 0))
+	{
+		write(1, "Error\n", 6);
+		return (0);
+	}
 	tab_stack_a = ft_initialise(argv, lenght + 1);
 	if (!tab_stack_a || check_redondance(tab_stack_a, lenght) == 1)
 	{

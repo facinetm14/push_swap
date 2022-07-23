@@ -18,6 +18,7 @@ void	ft_rotate_reverse(t_stack **stack)
 	t_stack	*first;
 	t_stack	*before_last;
 
+	before_last = NULL;
 	tmp = *stack;
 	first = *stack;
 	while (tmp)
